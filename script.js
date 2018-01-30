@@ -18,5 +18,33 @@ function ham(){
 	}
 }
 
+  time = document.getElementsByClassName('time')[0];
+  time.innerHTML='00:00';
+  time_total = 60;
+  time_elapsed = 0;
+  function timer() {
+  	sec = 0;
+  	min = 0;
+  	setInterval(function() {
+  		sec++;
+  		if(sec==60)
+  		{
+  			time_elapsed++;
+  		}
+  		sec = sec%60;
+  		min = time_elapsed;
+  		sec = sec.toString();
+  		min = min.toString();
+  		if(sec.length<2)
+  			sec='0'+sec;
+  		if(min.length<2)
+  			min='0'+min;
+  		time.innerHTML=min+':'+sec;
+  		sec=parseInt(sec);
+  		min=parseInt(min);
+  	}, 1000);
+  }
+
 document.getElementsByClassName("begin-button")[0].addEventListener("click", begin);
+document.getElementsByClassName("begin-button")[0].addEventListener("click", timer);
 document.getElementsByClassName("back")[0].addEventListener("click", ham);
