@@ -114,13 +114,27 @@ body, html{
 
 .hamburger{
 	position: absolute;
-	background: #CED5EA;
-	opacity: .8;
+	display: flex;
+	flex-wrap: wrap;
+	/*align-content: space-around;*/
+	justify-content: space-around;
+	background: rgba(206, 213, 234, 0.8);
 	top: 5vh;
 	right: 0vw;
-	height: 100vh;
+	height: 90vh;
 	width: 25vw;
 }
+
+.ham-numbers{
+		height: 40px;
+		width: 40px;
+		background-color: #b9b3b3;
+		border: solid black 1px;
+		text-align: center;
+		line-height: 40px;
+		margin-right: 10px;
+	}
+
 
   .time {
  	background: #6679ba;
@@ -183,20 +197,28 @@ body, html{
 		width: 10vw; 
 		cursor: pointer; 
 		transform: rotateY(0deg);
-		transition: transform .5s ease-in-out;
+		transition: transform .3s ease-in-out;
 	}
 
 	.hamburger{
-		display: block;
 		position: absolute;
-		background: #CED5EA;
-		opacity: .8;
+		background: rgba(206, 213, 234, 0.8);
 		top: 6vh;
 		right: -70vw;
 		height: 100vh;
 		width: 70vw;
 		z-index: 1;
-		transition: right .5s ease-in-out;
+		transition: right .3s ease-in-out;
+	}
+
+	.ham-numbers{
+		height: 0px;
+		width: 0px;
+		line-height: 0px;
+		margin: 25px;
+		opacity: 0;
+		/*animation: emerge 1s forwards;*/
+		transition: all .2s ease-in-out;
 	}
 
 	.time {
@@ -207,8 +229,23 @@ body, html{
  		padding-top: 10px;
  		padding-bottom: 10px;
  		font-size: 3vh;
+ 		color: white;
  		font-family: sans-serif;
  		font-weight: bold;
  	}
 
+ 	/*@keyframes emerge{
+ 		0%{
+ 			height: 0px;
+ 			width: 0px;
+ 			line-height: 0px;
+ 			margin: 10px;
+ 		}
+
+ 		100%{
+ 			height: 30px;
+ 			width: 30px;
+ 			margin: 0px;
+ 		}
+ 	}*/
 }
