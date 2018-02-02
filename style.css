@@ -116,12 +116,11 @@ body, html{
 	position: absolute;
 	display: flex;
 	flex-wrap: wrap;
-	/*align-content: space-around;*/
 	justify-content: space-around;
 	background: rgba(206, 213, 234, 0.8);
 	top: 5vh;
 	right: 0vw;
-	height: 90vh;
+	height:100vh;
 	width: 25vw;
 }
 
@@ -135,6 +134,12 @@ body, html{
 		margin-right: 10px;
 	}
 
+.ham-type-text{
+	width: 100%;
+	padding-left: 3vw;
+	font-size: 3vh;
+	font-family: sans-serif;
+}
 
   .time {
  	background: #6679ba;
@@ -187,9 +192,10 @@ body, html{
 		display: block;	
 		background: url('img/left.svg');
 		position: absolute;
-		top: 40%;
-		right: 100%;
+		top: 50%;
+		right: 0%;
 		z-index: 2;
+		transition: right .3s ease-in-out;
 	}
 
 	.img{
@@ -208,10 +214,20 @@ body, html{
 		height: 100vh;
 		width: 70vw;
 		z-index: 1;
+		overflow-y: scroll;
 		transition: right .3s ease-in-out;
 	}
 
+	.ham-type{
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		padding-bottom: 6vh;
+	}
+
+
 	.ham-numbers{
+		position: relative;
 		height: 0px;
 		width: 0px;
 		line-height: 0px;

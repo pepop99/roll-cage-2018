@@ -8,22 +8,25 @@ function ham(){
 	if(c==0){
 			document.getElementsByClassName("hamburger")[0].style.right = "0vw";
 			document.getElementsByClassName("img")[0].style.transform = "rotateY(180deg)";
+      document.getElementsByClassName("back")[0].style.right = "70%";
       setTimeout(function() {
-        for(i=0;i<13;i++){
+        for(i=0;i<48;i++){
           document.getElementsByClassName("ham-numbers")[i].style.height = "30px";
           document.getElementsByClassName("ham-numbers")[i].style.width = "30px";
           document.getElementsByClassName("ham-numbers")[i].style.opacity = "1";
           document.getElementsByClassName("ham-numbers")[i].style.margin = "10px";
         }
-      }, 300);
+      }, 400);
       c=1;
 		}
 
 	else{
 		document.getElementsByClassName("hamburger")[0].style.right = "-70vw";
 		document.getElementsByClassName("img")[0].style.transform = "rotateY(0deg)";
+    document.getElementsByClassName("back")[0].style.right = "0%";
+
     setTimeout(function () {
-        for(j=0;j<13;j++){
+        for(j=0;j<48;j++){
           document.getElementsByClassName("ham-numbers")[j].style.height = "0px";
           document.getElementsByClassName("ham-numbers")[j].style.width = "0px";
           document.getElementsByClassName("ham-numbers")[j].style.opacity = "0";
