@@ -181,6 +181,26 @@ input[type='submit']
 		margin-right: 10px;
 	}
 
+.ham-numbers:hover{
+	cursor: pointer;
+}
+
+.unvisited{
+	background: #fff;
+}
+
+.visited{
+	background: #f00;
+}
+
+.attempted{
+	background:#a9e339;
+}
+
+.current{
+	background: #238dd0;
+}
+
 .ham-type-text{
 	width: 100%;
 	padding-left: 3vw;

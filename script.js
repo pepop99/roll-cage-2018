@@ -1,3 +1,181 @@
+//code for logic starts here
+
+//status codes for questions - [0=>current,1=>attempted,2=>visited,but not attempted,3=>unvisited]
+var questions = [
+  {
+    statement:'This is statement of Q1',
+    options:['1','2','3','4'],
+    type:"Type1",
+    status:0
+  },
+  {
+    statement:'This is statement of Q2',
+    options:['1','2','3','4'],
+    type:"Type2",
+    status:1
+  },
+  {
+    statement:'This is statement of Q3',
+    options:['1','2','3','4'],
+    type:"Type3",
+    status:2
+  },
+  {
+    statement:'This is statement of Q4',
+    options:['1','2','3','4'],
+    type:"Type4",
+    status:3
+  },
+  {
+    statement:'This is statement of Q5',
+    options:['1','2','3','4'],
+    type:"Type1",
+    status:3
+  }
+];//object that stores questions with their options and their current status
+
+var numberOfQuestions = questions.length;
+
+var typesOfQuestion = [];
+
+for(i=0;i<numberOfQuestions;i++){
+  if(typesOfQuestion.indexOf(questions[i].type)<0) typesOfQuestion[typesOfQuestion.length] = questions[i].type;
+}
+
+var currentQuesNo;//keeps track of the current question number
+var prevQuesStatus = 0;//keeps track of the status of question on which the user was before he clicked a new question => status of current question before its status became "current"
+
+//creating elements in hamburger
+var hamburger = document.getElementsByClassName("hamburger")[0];
+var quesInHam = [];//array that holds the index of questions that have been added to the ham
+
+for(i=0;i<typesOfQuestion.length;i++){
+  var hamType = document.createElement("div");
+  hamType.className = "ham-type";
+
+  var hamTypeText = document.createElement("span");
+  hamTypeText.className = "ham-type-text";
+  hamTypeText.innerHTML = typesOfQuestion[i];
+
+  hamburger.appendChild(hamType);
+  hamType.appendChild(hamTypeText);
+
+  for(j=0;j<numberOfQuestions;j++){
+    if(quesInHam.indexOf(j)<0 && questions[j].type == typesOfQuestion[i]){
+      var hamNum = document.createElement("div");
+      hamNum.className = "ham-numbers";
+      hamNum.innerHTML = "Q."+(quesInHam.length+1);
+
+      switch(questions[j].status){
+        case 0: hamNum.classList.add('current');
+            currentQuesNo = quesInHam.length+1;
+          break;
+        case 1: hamNum.classList.add('attempted');
+          break;
+        case 2: hamNum.classList.add('visited');
+          break;
+        case 3: hamNum.classList.add('unvisited');
+          break;
+      }
+
+      hamType.appendChild(hamNum);
+
+      quesInHam[quesInHam.length] = j;
+    }
+  }
+}
+
+function updateQuestion(){
+  currentQuesInfo = questions[quesInHam[currentQuesNo-1]];
+
+  document.getElementsByClassName("question")[0].innerHTML = currentQuesInfo.statement;
+  document.getElementsByClassName("question-number")[0].innerHTML = "Question "+currentQuesNo;
+  document.getElementsByClassName("type")[0].innerHTML = currentQuesInfo.type;
+}
+
+window.onload = updateQuestion;
+
+function nextQuestion(){
+  
+
+  updateQuestion();
+}
+
+function prevQuestion(){//goes to previous question without saving the current selected option
+  if(prevQuesStatus == 0 || prevQuesStatus == 2 || prevQuesStatus == 3){
+    questions[quesInHam[currentQuesNo-1]].status = 2;
+    document.getElementsByClassName("ham-numbers")[currentQuesNo-1].className = "ham-numbers visited";
+  }  
+  else{
+    questions[quesInHam[currentQuesNo-1]].status = 1;
+    document.getElementsByClassName("ham-numbers")[currentQuesNo-1].className = "ham-numbers attempted";
+  }
+
+  var quesNoPrev = currentQuesNo - 1;
+
+  if(quesNoPrev < 1) quesNoPrev = numberOfQuestions;
+
+  var initialStatusOfPrev = questions[quesInHam[quesNoPrev-1]].status;
+
+  prevQuesStatus = initialStatusOfPrev;
+  currentQuesNo = quesNoPrev;
+  questions[quesInHam[currentQuesNo-1]].status = 0;
+  document.getElementsByClassName("ham-numbers")[currentQuesNo-1].className = "ham-numbers current";
+
+  updateQuestion();
+}
+
+function skipQuestion(){//skip the current question irrespective of whether an option is selected or not
+  if(prevQuesStatus == 0 || prevQuesStatus == 2 || prevQuesStatus == 3){
+    questions[quesInHam[currentQuesNo-1]].status = 2;
+    document.getElementsByClassName("ham-numbers")[currentQuesNo-1].className = "ham-numbers visited";
+  }  
+  else{
+    questions[quesInHam[currentQuesNo-1]].status = 1;
+    document.getElementsByClassName("ham-numbers")[currentQuesNo-1].className = "ham-numbers attempted";
+  }
+
+  var quesNoNext = currentQuesNo + 1;
+
+  if(quesNoNext > numberOfQuestions) quesNoNext = 1;
+
+  var initialStatusOfNext = questions[quesInHam[quesNoNext-1]].status;
+
+  prevQuesStatus = initialStatusOfNext;
+  currentQuesNo = quesNoNext;
+  questions[quesInHam[currentQuesNo-1]].status = 0;
+  document.getElementsByClassName("ham-numbers")[currentQuesNo-1].className = "ham-numbers current";
+
+  updateQuestion();
+}
+
+function goToQuesNo(e){//goes to selected question number without saving the current selected option
+  if(prevQuesStatus == 0 || prevQuesStatus == 2 || prevQuesStatus == 3){
+    questions[quesInHam[currentQuesNo-1]].status = 2;
+    document.getElementsByClassName("ham-numbers")[currentQuesNo-1].className = "ham-numbers visited";
+  }  
+  else{
+    questions[quesInHam[currentQuesNo-1]].status = 1;
+    document.getElementsByClassName("ham-numbers")[currentQuesNo-1].className = "ham-numbers attempted";
+  }
+
+  var quesNoClicked = Array.from(document.getElementsByClassName("ham-numbers")).indexOf(e.target) + 1;
+  var initialStatusOfClicked = questions[quesInHam[quesNoClicked-1]].status;
+
+  prevQuesStatus = initialStatusOfClicked;
+  currentQuesNo = quesNoClicked;
+  questions[quesInHam[currentQuesNo-1]].status = 0;
+  document.getElementsByClassName("ham-numbers")[currentQuesNo-1].className = "ham-numbers current";
+
+  updateQuestion();
+}
+
+for(i=0;i<numberOfQuestions;i++){
+  document.getElementsByClassName("ham-numbers")[i].addEventListener("click", goToQuesNo);
+}
+
+//code for logic ends here
+
 function begin(){
 	document.getElementsByClassName("main")[0].style.top = "0vh";
 	console.log(1);
